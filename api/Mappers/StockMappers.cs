@@ -22,5 +22,20 @@ namespace api.Mappers
             };
 
         }
+
+
+        public static Stock StockModelFromCreateStockRequestDto(this CreateStockRequestDto createStockRequestDto  ) {
+            return new Stock{
+
+                Symbol=createStockRequestDto.Symbol,
+                CompanyName=createStockRequestDto.CompanyName,
+                Purchase=createStockRequestDto.Purchase,
+                LastDiv=createStockRequestDto.LastDiv,
+                Industry=createStockRequestDto.Industry,
+                MarketCap=createStockRequestDto.MarketCap
+            };
+
+
+        }
     }
 }
