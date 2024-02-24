@@ -36,6 +36,10 @@ namespace api.Controllers
         [HttpGet("{stockId:int}/{commentId:int}")]
         public async Task<IActionResult> FindById([FromRoute] int stockId, [FromRoute] int commentId)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+
             var commentResponseDto = await commentService.FindById(stockId, commentId);
             if (commentResponseDto == null)
             {
@@ -49,6 +53,9 @@ namespace api.Controllers
         [HttpPost("{stockId:int}")]
         public async Task<IActionResult> Add([FromRoute] int stockId, [FromBody] CreateCommentDto createCommentDto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var commentResponseDto = await commentService.Add(stockId, createCommentDto);
             if (commentResponseDto == null)
             {
@@ -61,6 +68,9 @@ namespace api.Controllers
         [HttpPut("{stockId:int}/{commentId:int}")]
         public async Task<IActionResult> Update([FromRoute] int stockId, [FromRoute] int commentId, [FromBody] UpdateCommentDto updateCommentDto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var commentResponseDto = await commentService.Update(stockId, commentId, updateCommentDto);
             if (commentResponseDto == null)
             {
@@ -71,9 +81,10 @@ namespace api.Controllers
         }
 
         [HttpDelete("{stockId:int}/{commentId:int}")]
-        public async Task<IActionResult> Delete([FromRoute] int stockId, [FromRoute] int commentId) {
+        public async Task<IActionResult> Delete([FromRoute] int stockId, [FromRoute] int commentId)
+        {
 
-            await commentService.Delete(stockId,commentId);
+            await commentService.Delete(stockId, commentId);
             return NoContent();
         }
 

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using api.Data;
 using api.Dtos.StockDtos;
 using api.Models;
+using api.Utitlities;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Repository
@@ -43,7 +44,7 @@ namespace api.Repository
 
 
 
-        public async Task<List<Stock>> GetAllAsync()
+        public async Task<List<Stock>> FindAll()
         {
             return await context.Stock.Include(c=>c.Comments).ToListAsync();
 

@@ -63,6 +63,8 @@ namespace api.Services
             return commentModel.MapToResponseDto();
         }
 
+
+
         public async Task<CommentResponseDto> Add(int stockId, CreateCommentDto createCommentDto)
         {
 
@@ -75,6 +77,8 @@ namespace api.Services
             await commentRepository.Add(commentModel);
             return commentModel.MapToResponseDto();
         }
+
+        
 
         public async Task<CommentResponseDto> Update(int stockId, int commentId, UpdateCommentDto updateComment)
         {

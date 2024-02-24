@@ -2,7 +2,7 @@ using api.Data;
 using api.Interfaces;
 using api.Repository;
 using api.Services;
-
+// using api.Utitlities;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
@@ -25,6 +25,7 @@ builder.Services.AddScoped<IStockService, StockService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<StockRepository>();
 builder.Services.AddScoped<CommentRepository>();
+// builder.Services.AddScoped<QueryObject>();
 
 
 

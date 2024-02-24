@@ -8,6 +8,7 @@ using api.Interfaces;
 using api.Mappers;
 using api.Repository;
 using api.Services;
+using api.Utitlities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,18 +20,27 @@ namespace api.Controllers
     public class StockController : ControllerBase
     {
         private readonly IStockService stockService;
-        public StockController(StockService stockService)
+        public StockController(IStockService stockService)
         {
             this.stockService = stockService;
         }
 
 
 
-
         [HttpGet]
         public async Task<IActionResult> FindAll()
         {
-            var stockDtoReturnList = await stockService.FindAll();
+            return Ok(await stockService.FindAll());
+        }
+
+        [HttpGet("/query")]
+        public async Task<IActionResult> FindAllByQuery([FromQuery] QueryObject queryObject)
+        {
+
+            if(!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+            var stockDtoReturnList = await stockService.FindAllByQuery(queryObject);
             return Ok(stockDtoReturnList);
         }
 
@@ -54,6 +64,9 @@ namespace api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateStockDto createStockRequestDto)
         {
+            if(!ModelState.IsValid)
+            return BadRequest(ModelState);
+
             var createdStockDto = await stockService.Add(createStockRequestDto);
             return CreatedAtAction(nameof(FindById), new { id = createdStockDto.Id }, createdStockDto);
         }
@@ -66,6 +79,9 @@ namespace api.Controllers
         [Route("{id:int}")]
         public async Task<IActionResult> Update([FromBody] UpdateStockDto updateStockDto, [FromRoute] int id)
         {
+            if(!ModelState.IsValid)
+            return BadRequest(ModelState);
+
            var stockDto = await stockService.Update(id,updateStockDto);
            return Ok(stockDto);
         }

@@ -8,6 +8,7 @@ using api.Interfaces;
 using api.Mappers;
 using api.Models;
 using api.Repository;
+using api.Utitlities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -46,9 +47,25 @@ namespace api.Services
 
         public async Task<IEnumerable<StockDto>> FindAll()
         {
-            var listOfStocks = await stockRepository.GetAllAsync();
-            var listOfStockDtos = listOfStocks.Select(stock => stock.ToStockDto()).ToList();
-            return listOfStockDtos;
+            var listOfStocks = await stockRepository.FindAll();
+            var listOfStockDtos = listOfStocks.Select(stock => stock.ToStockDto());
+            return listOfStockDtos.ToList();
+        }
+
+        public async Task<List<StockDto>> FindAllByQuery(QueryObject queryObject)
+        {
+            var listOfStocks = await stockRepository.FindAll();
+
+            if (!string.IsNullOrWhiteSpace(queryObject.CompanyName))
+            {
+                listOfStocks = listOfStocks.Where(s => s.CompanyName.Contains(queryObject.CompanyName)).ToList();
+            }
+            if (!string.IsNullOrWhiteSpace(queryObject.Symbol))
+            {
+                listOfStocks = listOfStocks.Where(s => s.Symbol.Contains(queryObject.Symbol)).ToList();
+            }
+
+            return  listOfStocks.Select(stock => stock.ToStockDto()).ToList();
         }
 
 
@@ -86,6 +103,6 @@ namespace api.Services
             return exists;
         }
 
-       
+
     }
 }
