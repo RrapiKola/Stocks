@@ -97,6 +97,7 @@ namespace api.Services
 
             commentModel.Title = updateComment.Title;
             commentModel.Content = updateComment.Content;
+            commentModel.StockId = updateComment.StockId;
             await context.SaveChangesAsync();
 
             return commentModel.MapToResponseDto();

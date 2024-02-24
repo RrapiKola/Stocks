@@ -27,13 +27,13 @@ namespace api.Controllers
             this.commentService = commentService;
         }
 
-        [HttpGet("{stockId}")]
+        [HttpGet("{stockId:int}")]
         public async Task<IActionResult> FindAll([FromRoute] int stockId)
         {
             return Ok(await commentService.FindAll(stockId));
         }
 
-        [HttpGet("{stockId}/{commentId}")]
+        [HttpGet("{stockId:int}/{commentId:int}")]
         public async Task<IActionResult> FindById([FromRoute] int stockId, [FromRoute] int commentId)
         {
             var commentResponseDto = await commentService.FindById(stockId, commentId);
@@ -46,7 +46,7 @@ namespace api.Controllers
         }
 
 
-        [HttpPost("{stockId}")]
+        [HttpPost("{stockId:int}")]
         public async Task<IActionResult> Add([FromRoute] int stockId, [FromBody] CreateCommentDto createCommentDto)
         {
             var commentResponseDto = await commentService.Add(stockId, createCommentDto);
@@ -58,7 +58,7 @@ namespace api.Controllers
         }
 
 
-        [HttpPut("{stockId}/{commentId}")]
+        [HttpPut("{stockId:int}/{commentId:int}")]
         public async Task<IActionResult> Update([FromRoute] int stockId, [FromRoute] int commentId, [FromBody] UpdateCommentDto updateCommentDto)
         {
             var commentResponseDto = await commentService.Update(stockId, commentId, updateCommentDto);
@@ -70,7 +70,7 @@ namespace api.Controllers
 
         }
 
-        [HttpDelete("{stockId}/{commentId}")]
+        [HttpDelete("{stockId:int}/{commentId:int}")]
         public async Task<IActionResult> Delete([FromRoute] int stockId, [FromRoute] int commentId) {
 
             await commentService.Delete(stockId,commentId);

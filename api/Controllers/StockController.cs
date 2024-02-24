@@ -37,7 +37,7 @@ namespace api.Controllers
 
 
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> FindById([FromRoute] int id)
         {
             var stockDto = await stockService.FindById(id);
@@ -63,7 +63,7 @@ namespace api.Controllers
 
 
         [HttpPut]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Update([FromBody] UpdateStockDto updateStockDto, [FromRoute] int id)
         {
            var stockDto = await stockService.Update(id,updateStockDto);
@@ -74,7 +74,7 @@ namespace api.Controllers
 
 
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var stockModel = await stockService.Delete(id);
