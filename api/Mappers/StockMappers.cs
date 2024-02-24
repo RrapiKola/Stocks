@@ -18,13 +18,14 @@ namespace api.Mappers
                 Purchase = stockModel.Purchase,
                 LastDiv = stockModel.LastDiv,
                 Industry = stockModel.Industry,
-                MarketCap = stockModel.MarketCap
+                MarketCap = stockModel.MarketCap,
+                CommentResponseDtos = stockModel.Comments.Select(c => c.MapToResponseDto()).ToList()
             };
 
         }
 
 
-        public static Stock StockModelFromCreateStockRequestDto(this CreateStockRequestDto createStockRequestDto  ) {
+        public static Stock MapToModel(this CreateStockDto createStockRequestDto  ) {
             return new Stock{
 
                 Symbol=createStockRequestDto.Symbol,

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace api.Dtos.StockDtos
 {
-    public class UpdateStockRequestDto
+    public class CreateStockDto
     {
         public string Symbol { get; set; } = string.Empty;
         public string CompanyName { get; set; } = string.Empty;
@@ -17,5 +17,6 @@ namespace api.Dtos.StockDtos
         public string Industry { get; set; } = string.Empty;
 
         public long MarketCap { get; set; }
+
     }
 }
